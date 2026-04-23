@@ -50,7 +50,7 @@ MovieRecommendation/
 ## ⚙️ Installation & Setup
 
 # Clone repository
-git clone https://github.com/your-username/movie-recommender.git
+git clone https://github.com/sanvi-nahar/movie-recommender.git
 
 # Go to project folder
 cd movie-recommender
