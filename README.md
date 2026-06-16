@@ -6,7 +6,7 @@ Search for a film you love and discover a curated list of similar films — rank
 
 ## Demo
 
-![CineMatch Demo](screenshots/demo.gif)
+![CineMatch Demo](https://movie-recommender-eef4.onrender.com/)
 
 ## Features
 
