@@ -9,6 +9,30 @@ import requests
 from urllib.parse import quote
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import json
+import threading
+from concurrent.futures import ThreadPoolExecutor
+
+# =========================
+# POSTER CACHE SETUP
+# =========================
+POSTER_CACHE_FILE = "poster_cache.json"
+poster_cache = {}
+cache_lock = threading.Lock()
+
+try:
+    if os.path.exists(POSTER_CACHE_FILE):
+        with open(POSTER_CACHE_FILE, "r", encoding="utf-8") as f:
+            poster_cache = json.load(f)
+except Exception as e:
+    print("Error loading poster cache:", e)
+
+def save_poster_cache():
+    try:
+        with open(POSTER_CACHE_FILE, "w", encoding="utf-8") as f:
+            json.dump(poster_cache, f, indent=4)
+    except Exception as e:
+        print("Error saving poster cache:", e)
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
@@ -38,7 +62,7 @@ similarity = None
 def load_model():
     global similarity
     if similarity is None:
-        print("⚡ Loading model...")
+        print("Loading model...")
         tfidf = TfidfVectorizer(stop_words='english', max_features=2000)
         tfidf_matrix = tfidf.fit_transform(movies['tags'])
         similarity = cosine_similarity(tfidf_matrix)
@@ -49,11 +73,26 @@ def load_model():
 OMDB_API_KEY = "f4cd20e4"
 
 def get_poster(title):
+    with cache_lock:
+        if title in poster_cache:
+            return poster_cache[title]
+
     try:
         url = f"https://www.omdbapi.com/?t={quote(title)}&apikey={OMDB_API_KEY}"
         data = requests.get(url, timeout=5).json()
-        return data.get("Poster", "https://via.placeholder.com/300x450")
-    except:
+        poster = data.get("Poster", "N/A")
+        
+        if poster == "N/A" or not poster:
+            poster = "https://via.placeholder.com/300x450"
+        
+        if poster != "https://via.placeholder.com/300x450":
+            with cache_lock:
+                poster_cache[title] = poster
+                save_poster_cache()
+                
+        return poster
+    except Exception as e:
+        print("OMDb API error for", title, ":", e)
         return "https://via.placeholder.com/300x450"
 
 # =========================
@@ -74,17 +113,23 @@ def recommend(movie, n=10):
     scores = list(enumerate(similarity[idx]))
     scores = sorted(scores, key=lambda x: x[1], reverse=True)[1:n+1]
 
+    # Fetch poster URLs in parallel to avoid sequential network requests bottleneck
+    rows = [movies.iloc[i[0]] for i in scores]
+    titles = [row['title'] for row in rows]
+    
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        posters = list(executor.map(get_poster, titles))
+        
     result = []
-
-    for i in scores:
-        title = movies.iloc[i[0]]['title']
-        genres = movies.iloc[i[0]]['genres_list']
-
+    for i, row in enumerate(rows):
         result.append({
-            "title": title,
-            "poster": get_poster(title),
-            "similarity": round(float(i[1]) * 100, 1),
-            "genres": genres[:3]
+            "title": row['title'],
+            "poster": posters[i],
+            "similarity": round(float(scores[i][1]) * 100, 1),
+            "genres": row['genres_list'][:3],
+            "overview": row['overview'] if pd.notna(row['overview']) else "",
+            "vote_average": float(row['vote_average']) if pd.notna(row['vote_average']) else 0.0,
+            "release_date": row['release_date'] if pd.notna(row['release_date']) else ""
         })
 
     return result
@@ -107,7 +152,7 @@ def recommend_api():
             }).execute()
             print("INSERT RESPONSE:", res)
     except Exception as e:
-        print("❌ DB ERROR:", e)
+        print("DB ERROR:", e)
 
     return jsonify(recommend(movie))
     
@@ -119,13 +164,25 @@ def history():
 @app.route("/trending")
 def trending():
     top = movies.sort_values(by="popularity", ascending=False).head(20)
+    
+    rows = [row for _, row in top.iterrows()]
+    titles = [row['title'] for row in rows]
+    
+    # Fetch trending posters in parallel
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        posters = list(executor.map(get_poster, titles))
+        
     return jsonify([
         {
             "title": row['title'],
-            "poster": get_poster(row['title']),
-            "genres": row['genres_list'][:3]
+            "poster": posters[i],
+            "genres": row['genres_list'][:3],
+            "tagline": row['tagline'] if pd.notna(row['tagline']) else "",
+            "overview": row['overview'] if pd.notna(row['overview']) else "",
+            "vote_average": float(row['vote_average']) if pd.notna(row['vote_average']) else 0.0,
+            "release_date": row['release_date'] if pd.notna(row['release_date']) else ""
         }
-        for _, row in top.iterrows()
+        for i, row in enumerate(rows)
     ])
 
 # =========================
