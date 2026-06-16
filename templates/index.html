@@ -16,8 +16,9 @@
   --bg-page: #F5F1E8;         /* Warm Ivory Background */
   --bg-surface: #FFFFFF;      /* Pure White Surface (Cards, Headers) */
   --bg-section: #FAF8F4;      /* Editorial Off-White Section Background */
+  --bg-light: #FAF8F4;       /* Helper Sand Background */
   
-  --text-primary: #1C1917;    /* Primary Text (Charcoal) */
+  --text-primary: #1C1917;    /* Primary Text (Dark Charcoal) */
   --text-secondary: #78716C;  /* Secondary Text (Warm Grey) */
   --text-tertiary: #A8A29E;   /* Muted Sand Grey */
   
@@ -63,7 +64,7 @@ body {
 .navbar {
   border-bottom: 1px solid var(--border-color);
   background-color: var(--bg-surface);
-  padding: 20px 24px;
+  padding: 18px 24px;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -132,45 +133,46 @@ body {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 56px 24px 80px 24px;
+  padding: 24px 24px 60px 24px;
   flex: 1;
 }
 
 /* Hero Section */
 .hero {
   text-align: center;
-  margin-bottom: 44px;
-  max-width: 680px;
+  margin-bottom: 16px;
+  max-width: 640px;
   margin-left: auto;
   margin-right: auto;
+  padding-top: 8px;
 }
 
 .hero h1 {
   font-family: var(--font-heading);
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--text-primary);
-  margin-bottom: 14px;
+  margin-bottom: 6px;
   line-height: 1.15;
 }
 
 .hero p {
   color: var(--text-secondary);
-  font-size: 1.05rem;
-  line-height: 1.6;
-  margin-bottom: 8px;
+  font-size: 0.93rem;
+  line-height: 1.5;
+  margin-bottom: 0px;
 }
 
-/* Search Seed Box */
+/* Search Seed Box - Core focus of page */
 .search-container {
   position: relative;
-  max-width: 580px;
-  margin: 0 auto 60px auto;
+  max-width: 560px;
+  margin: 0 auto 24px auto;
   display: flex;
   gap: 8px;
   background-color: var(--bg-surface);
-  padding: 6px;
+  padding: 5px;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-sm);
@@ -179,7 +181,7 @@ body {
 
 .search-container:focus-within {
   border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(180, 83, 9, 0.1);
+  box-shadow: 0 0 0 2px rgba(180, 83, 9, 0.12);
 }
 
 .search-input-wrapper {
@@ -254,7 +256,7 @@ body {
   width: 16px;
   height: 16px;
   border: 2px solid rgba(180, 83, 9, 0.15);
-  border-top-color: var(--accent);
+  border-top-color: #ffffff;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
   display: inline-block;
@@ -264,13 +266,14 @@ body {
   to { transform: rotate(360deg); }
 }
 
-/* Spotlight Featured Banner */
+/* Spotlight Featured Banner (Curated magazine compositing) */
 .spotlight-container {
   background-color: var(--bg-section);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  margin-bottom: 60px;
+  margin-top: 0px; /* Positioned right after search */
+  margin-bottom: 44px;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
 }
@@ -283,7 +286,7 @@ body {
 
 .spotlight-info {
   flex: 1.3;
-  padding: 44px;
+  padding: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -292,31 +295,31 @@ body {
 .spotlight-badge {
   align-self: flex-start;
   font-family: var(--font-body);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--accent);
   background-color: var(--accent-light);
   padding: 4px 10px;
   border-radius: var(--radius-sm);
-  margin-bottom: 18px;
+  margin-bottom: 12px; /* Tighter layout */
 }
 
 .spotlight-title {
   font-family: var(--font-heading);
-  font-size: 2.5rem;
+  font-size: 2.75rem; /* Increased title prominence */
   font-weight: 700;
   color: var(--text-primary);
-  margin: 0 0 10px 0;
-  line-height: 1.2;
+  margin: 0 0 6px 0;
+  line-height: 1.15;
 }
 
 .spotlight-meta {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   margin-bottom: 16px;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: var(--text-secondary);
 }
 
@@ -337,32 +340,25 @@ body {
   font-style: italic;
   font-size: 1.05rem;
   color: var(--text-secondary);
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   border-left: 2px solid var(--border-color);
   padding-left: 12px;
 }
 
 .spotlight-overview {
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 24px;
+  line-height: 1.55;
+  margin-bottom: 22px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-.spotlight-genres {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 28px;
-}
-
-.spotlight-genres .badge {
-  padding: 4px 10px;
-  font-size: 0.75rem;
+.spotlight-genres-text {
+  font-weight: 500;
+  color: var(--text-secondary);
 }
 
 .spotlight-poster-wrapper {
@@ -389,31 +385,33 @@ body {
 
 .spotlight-btn {
   align-self: flex-start;
-  padding: 12px 22px;
-  font-size: 0.95rem;
+  padding: 11px 22px;
+  font-size: 0.9rem;
 }
 
 /* Section Header */
 .section-header {
   display: flex;
-  flex-direction: column;
-  margin-bottom: 26px;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
   border-bottom: 1px solid var(--border-color);
-  padding-bottom: 14px;
+  padding-bottom: 10px;
 }
 
 .section-title {
   font-family: var(--font-heading);
-  font-size: 1.65rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: var(--text-primary);
   margin: 0;
 }
 
 .helper {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  margin-top: 4px;
+  font-size: 0.82rem;
+  color: var(--text-tertiary);
+  margin-top: 0;
 }
 
 /* Results Fade In */
@@ -429,8 +427,8 @@ body {
 /* Movie Cards Grid */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 28px;
+  grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+  gap: 18px;
 }
 
 .card {
@@ -508,10 +506,11 @@ body {
   font-weight: 500;
 }
 
+/* Muted warm sand genre tags (amber strictly saved for CTAs/labels) */
 .card-genres .badge {
-  background-color: var(--accent-light);
-  border: 1px solid rgba(180, 83, 9, 0.15);
-  color: var(--accent);
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
 }
 
 .card:hover .badge {
@@ -519,8 +518,7 @@ body {
 }
 
 .card:hover .card-genres .badge {
-  border-color: rgba(180, 83, 9, 0.3);
-  color: var(--accent-hover);
+  color: var(--text-primary);
 }
 
 .sim {
@@ -604,7 +602,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(28, 25, 23, 0.3); /* Soft warm light overlay shadow */
+  background-color: rgba(28, 25, 23, 0.3); /* Soft warm overlay */
   z-index: 1000;
   display: flex;
   justify-content: center;
@@ -749,12 +747,13 @@ body {
   margin-bottom: 22px;
 }
 
+/* Neutral sand genre chips for modal */
 .modal-genres .badge {
   padding: 4px 10px;
   font-size: 0.75rem;
-  background-color: var(--accent-light);
-  border: 1px solid rgba(180, 83, 9, 0.15);
-  color: var(--accent);
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
 }
 
 .modal-overview {
@@ -798,10 +797,15 @@ body {
     border-bottom: 1px solid var(--border-color);
   }
   .spotlight-info {
-    padding: 32px;
+    padding: 28px;
   }
   .hero h1 {
-    font-size: 2.25rem;
+    font-size: 1.75rem;
+  }
+  .section-header {
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
   }
 }
 
@@ -836,36 +840,39 @@ body {
 
 @media (max-width: 640px) {
   .container {
-    padding: 32px 16px 64px 16px;
+    padding: 16px 16px 48px 16px;
   }
   .hero h1 {
-    font-size: 1.85rem;
+    font-size: 1.55rem;
+  }
+  .hero p {
+    font-size: 0.88rem;
   }
   .grid {
-    grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
   }
   .card-meta {
-    padding: 12px;
+    padding: 10px 12px;
   }
   .card-title {
-    font-size: 0.95rem;
-    margin-bottom: 6px;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
   }
   .spotlight-title {
-    font-size: 1.75rem;
+    font-size: 1.65rem;
   }
   .spotlight-info {
-    padding: 24px;
+    padding: 20px;
   }
   .navbar {
-    padding: 14px 16px;
+    padding: 12px 16px;
   }
   .navbar-nav {
     gap: 16px;
   }
   .navbar-brand {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
   }
 }
 </style>
@@ -900,11 +907,11 @@ body {
 
   <!-- Hero Section -->
   <section class="hero">
-    <h1>Find Your Next Favorite Movie</h1>
-    <p>Enter a movie you love, and we'll calculate recommendations using our content-based matching algorithm.</p>
+    <h1>Discover Films You'll Love</h1>
+    <p>Search for a film you love and uncover a curated list of films you won't want to miss.</p>
   </section>
 
-  <!-- Search Input Container -->
+  <!-- Search Input Container - Core Action Focus -->
   <section class="search-container">
     <div class="search-input-wrapper">
       <div class="search-icon">
@@ -1004,7 +1011,7 @@ function openRecommendationDetails(index) {
   document.getElementById("modal-title").innerText = movie.title;
   document.getElementById("modal-year").innerText = year;
   document.getElementById("modal-rating").innerHTML = `
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="margin-right:2px; vertical-align:middle; display:inline-block; margin-top:-3px;">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="margin-right:2px; vertical-align:middle; display:inline-block; margin-top:-3px; fill:var(--accent);">
       <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
     </svg>
     ${rating}
@@ -1042,28 +1049,35 @@ function renderSpotlight(movie) {
   const poster = movie.poster && movie.poster !== "https://via.placeholder.com/300x450" 
     ? movie.poster 
     : "https://via.placeholder.com/300x450";
-  const genres = (movie.genres || []).slice(0, 3).map(g => `<span class="badge">${g}</span>`).join("");
   const year = movie.release_date ? movie.release_date.substring(0, 4) : "";
   const rating = movie.vote_average ? `${movie.vote_average.toFixed(1)}` : "";
+  const genresList = (movie.genres || []).slice(0, 3).join(", ");
+
+  const metaParts = [];
+  if (year) metaParts.push(`<span class="spotlight-year">${year}</span>`);
+  if (rating) {
+    metaParts.push(`
+      <span class="spotlight-rating">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="margin-right:2px; vertical-align:middle; display:inline-block; margin-top:-3px; fill:var(--accent);">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        ${rating}/10
+      </span>
+    `);
+  }
+  if (genresList) metaParts.push(`<span class="spotlight-genres-text">${genresList}</span>`);
+  const metadataLine = metaParts.join(" &bull; ");
 
   container.innerHTML = `
     <div class="spotlight-content">
       <div class="spotlight-info">
-        <div class="spotlight-badge">FEATURED SPOTLIGHT</div>
+        <div class="spotlight-badge">EDITOR'S PICK</div>
         <h2 class="spotlight-title">${movie.title}</h2>
         <div class="spotlight-meta">
-          ${year ? `<span class="spotlight-year">${year}</span>` : ""}
-          ${rating ? `
-            <span class="spotlight-rating">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="margin-right:2px; vertical-align:middle; display:inline-block; margin-top:-3px;">
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-              </svg>
-              ${rating}/10
-            </span>` : ""}
+          ${metadataLine}
         </div>
         ${movie.tagline ? `<p class="spotlight-tagline">“${movie.tagline}”</p>` : ""}
         ${movie.overview ? `<p class="spotlight-overview">${movie.overview}</p>` : ""}
-        <div class="spotlight-genres">${genres}</div>
         <button class="btn-primary spotlight-btn" onclick="reseed('${movie.title.replace(/'/g, "\\'")}')">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;">
             <circle cx="11" cy="11" r="8"></circle>
