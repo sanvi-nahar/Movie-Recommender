@@ -4,9 +4,7 @@ A content-based movie recommendation platform with an editorial UI inspired by L
 
 Search for a film you love and discover a curated list of similar films — ranked by cosine similarity across TF-IDF feature vectors built from plot overviews and genre metadata.
 
-## Demo
 
-![CineMatch Demo](https://movie-recommender-eef4.onrender.com/)
 
 ## Features
 
