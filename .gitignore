@@ -1,6 +1,12 @@
 .venv/
+venv/
 __pycache__/
+*.pyc
 *.pkl
 poster_cache.json
 .env
 node_modules/
+.DS_Store
+*.egg-info/
+dist/
+build/

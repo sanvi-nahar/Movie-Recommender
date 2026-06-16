@@ -1,92 +1,112 @@
-# 🎬 StreamFlix: Movie Recommendation System
+# CineMatch
 
-A web-based movie recommendation system that suggests similar movies based on user input using content-based filtering. It analyzes movie descriptions and genres to generate relevant recommendations.
+A content-based movie recommendation platform with an editorial UI inspired by Letterboxd, A24, and the Criterion Collection.
 
----
+Search for a film you love and discover a curated list of similar films — ranked by cosine similarity across TF-IDF feature vectors built from plot overviews and genre metadata.
 
-## 🚀 Features
+## Demo
 
-- 🎯 Content-based movie recommendations  
-- 🎬 Real-time poster fetching using OMDB API  
-- ⚡ Fast and optimized backend (lazy loading)  
-- 💻 Interactive and responsive UI  
-- ☁️ Deployed on Render  
+![CineMatch Demo](screenshots/demo.gif)
 
----
+## Features
 
-## 🧠 How It Works
+- **Content-based recommendations** — TF-IDF vectorization + cosine similarity on movie descriptions and genres
+- **Featured film spotlight** — editorially presented trending movie with tagline, rating, and overview
+- **Movie details modal** — click any recommendation to view full details and re-seed a new search
+- **Parallel poster fetching** — concurrent OMDB API calls with persistent JSON cache
+- **Loading skeletons** — smooth skeleton loaders during data fetching
+- **Responsive layout** — editorial grid adapts from desktop to mobile
+- **Search history tracking** — optional Supabase integration for logging searches
 
-- Movie data is loaded from TMDB dataset  
-- Text features (overview + genres) are processed  
-- TF-IDF vectorization is applied  
-- Cosine similarity is used to find similar movies  
-- Recommendations are returned based on similarity score  
+## Tech Stack
 
----
+| Layer | Technology |
+|-------|-----------|
+| Backend | Python, Flask |
+| Frontend | HTML, CSS, JavaScript |
+| ML | Scikit-learn (TF-IDF, Cosine Similarity) |
+| Data | TMDB 5000 Movies Dataset |
+| Posters | OMDB API |
+| Database | Supabase (optional) |
+| Deployment | Render / Gunicorn |
 
-## 🛠️ Tech Stack
+## Project Structure
 
-- Backend: Python, Flask  
-- Frontend: HTML, CSS, JavaScript  
-- Machine Learning: Scikit-learn (TF-IDF, Cosine Similarity)  
-- API: OMDB API (for movie posters)  
-
----
-
-## 📂 Project Structure
-
-MovieRecommendation/
+```
+CineMatch/
+├── app.py                  # Flask application (routes, recommendation engine)
+├── requirements.txt        # Python dependencies
+├── .gitignore
+├── .env                    # API keys (not tracked)
 │
-├── app.py
+├── data/
+│   └── tmdb_5000_movies.csv    # TMDB dataset (4,803 movies)
+│
 ├── templates/
-│   └── index.html
-├── tmdb_5000_movies.csv
-├── tmdb_5000_credits.csv
-├── requirements.txt
-└── .gitignore
+│   └── index.html          # HTML structure
+│
+├── static/
+│   ├── css/
+│   │   └── style.css       # Editorial design system
+│   └── js/
+│       └── app.js          # Client-side application logic
+│
+└── screenshots/
+    └── README.md           # Screenshot documentation
+```
 
----
+## Installation
 
-## ⚙️ Installation & Setup
+```bash
+# Clone the repository
+git clone https://github.com/sanvi-nahar/Movie-Recommender.git
+cd Movie-Recommender
 
-# Clone repository
-git clone https://github.com/sanvi-nahar/movie-recommender.git
-
-# Go to project folder
-cd movie-recommender
+# Create and activate a virtual environment
+python -m venv venv
+source venv/bin/activate        # macOS/Linux
+venv\Scripts\activate           # Windows
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Run app
+# Set up environment variables
+cp .env.example .env
+# Add your SUPABASE_URL and SUPABASE_KEY (optional)
+
+# Run the application
 python app.py
+```
 
----
+The app will be available at `http://localhost:5000`.
 
-## 🌐 Usage
+## How It Works
 
-1. Enter a movie name  
-2. Click "Recommend"  
-3. Get similar movies with posters  
+1. Movie data is loaded from the TMDB 5000 dataset
+2. Text features (overview + genres) are combined into tags
+3. TF-IDF vectorization converts tags into numerical feature vectors
+4. Cosine similarity measures the angle between vectors to find similar movies
+5. Results are ranked by similarity score and returned with posters
 
----
+## Screenshots
 
-## ☁️ Deployment (Render)
+| View | Description |
+|------|-------------|
+| Home | Trending grid with featured spotlight |
+| Search Results | Recommendations ranked by similarity |
+| Movie Modal | Detailed view with overview and genres |
+| Mobile | Responsive editorial layout |
 
-Start command:
-gunicorn app:app
+> Add screenshots to the `screenshots/` directory. See [screenshots/README.md](screenshots/README.md) for guidance.
 
----
+## Future Improvements
 
-## 📌 Future Improvements
+- User accounts and personalized watchlists
+- Hybrid recommendation model (collaborative + content-based)
+- Genre and year filtering
+- Movie trailers integration
+- Extended dataset with more recent films
 
-- Better recommendation accuracy  
-- Bollywood + Hollywood support  
-- User-based personalization  
-- Netflix-style UI  
+## Author
 
----
-
-## 👩‍💻 Author
-
-Sanvi Nahar
+**Sanvi Nahar** — [GitHub](https://github.com/sanvi-nahar)

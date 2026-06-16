@@ -45,7 +45,7 @@ CORS(app)
 # =========================
 # LOAD DATA
 # =========================
-movies = pd.read_csv("tmdb_5000_movies.csv")
+movies = pd.read_csv("data/tmdb_5000_movies.csv")
 
 movies['overview'] = movies['overview'].fillna('')
 movies['genres_list'] = movies['genres'].apply(
