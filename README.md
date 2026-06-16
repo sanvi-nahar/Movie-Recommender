@@ -78,7 +78,7 @@ cp .env.example .env
 python app.py
 ```
 
-The app will be available at `http://localhost:5000`.
+The app will be available at `https://movie-recommender-eef4.onrender.com/`.
 
 ## How It Works
 
@@ -97,7 +97,6 @@ The app will be available at `http://localhost:5000`.
 | Movie Modal | Detailed view with overview and genres |
 | Mobile | Responsive editorial layout |
 
-> Add screenshots to the `screenshots/` directory. See [screenshots/README.md](screenshots/README.md) for guidance.
 
 ## Future Improvements
 
