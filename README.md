@@ -4,9 +4,7 @@ A content-based movie recommendation platform with an editorial UI inspired by L
 
 Search for a film you love and discover a curated list of similar films — ranked by cosine similarity across TF-IDF feature vectors built from plot overviews and genre metadata.
 
-## Demo
 
-![CineMatch Demo](screenshots/demo.gif)
 
 ## Features
 
@@ -78,7 +76,7 @@ cp .env.example .env
 python app.py
 ```
 
-The app will be available at `http://localhost:5000`.
+The app will be available at `https://movie-recommender-eef4.onrender.com/`.
 
 ## How It Works
 
@@ -97,7 +95,6 @@ The app will be available at `http://localhost:5000`.
 | Movie Modal | Detailed view with overview and genres |
 | Mobile | Responsive editorial layout |
 
-> Add screenshots to the `screenshots/` directory. See [screenshots/README.md](screenshots/README.md) for guidance.
 
 ## Future Improvements
 
